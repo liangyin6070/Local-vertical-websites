@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xsi:schemaLocation="
+      http://www.springframework.org/schema/beans
+      http://www.springframework.org/schema/beans/spring-beans.xsd
+      http://www.springframework.org/schema/context
+      http://www.springframework.org/schema/context/spring-context.xsd
+      http://www.springframework.org/schema/aop
+      http://www.springframework.org/schema/aop/spring-aop.xsd
+      http://www.springframework.org/schema/tx
+      http://www.springframework.org/schema/tx/spring-tx.xsd
+      http://www.springframework.org/schema/task  
+      http://www.springframework.org/schema/task/spring-task.xsd ">
+	<context:annotation-config />
+	<context:component-scan base-package="com.liupro.web" />
+	<!-- 读取mysql jdbc的配置 -->
+	<context:property-placeholder location="classpath:jdbc.properties" />
+	<!-- 配置数据源，从上面配置文件读取 -->
+	<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource"
+		init-method="init" destroy-method="close">
+		<property name="url" value="${jdbc.url}" />
+		<property name="username" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+		<property name="maxActive" value="200" />
+		<property name="initialSize" value="10" />
+		<property name="maxWait" value="60000" />
+		<property name="minIdle" value="10" />
+		<property name="timeBetweenEvictionRunsMillis" value="60000" />
+		<property name="minEvictableIdleTimeMillis" value="300000" />
+		<property name="filters" value="stat" />
+		<property name="validationQuery" value="SELECT 'x'" />
+		<property name="testWhileIdle" value="true" />
+		<property name="testOnBorrow" value="false" />
+		<property name="testOnReturn" value="false" />
+	</bean>
+	
+	<!-- mybats配置 -->
+	<!-- 创建SqlSessionFactory -->
+    <bean id="sessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource" />
+        <property name="typeAliasesPackage" value="com.liupro.web.*.model" />
+  		<!-- 自动扫描mapping.xml文件 -->  
+        <property name="mapperLocations" value="classpath*:com/liupro/web/*/mapper/*.xml"></property>  
+        <property name="configLocation" value="classpath:mybatis-config.xml" />  
+    </bean>
+
+    <!-- DAO接口所在包名，Spring会自动查找其下的类  -->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="com.liupro.web.*.dao" />
+        <property name="sqlSessionFactoryBeanName" value="sessionFactory"></property> 
+    </bean>
+
+    <!-- 配置事务管理器 -->
+    <bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource" />
+    </bean>
+ 
+ 	<!-- 事务注解配置 -->
+ 	<tx:annotation-driven transaction-manager="txManager" proxy-target-class="true"/>
+	<!-- 定时任务注解配置 -->
+	<task:annotation-driven />
+</beans>
