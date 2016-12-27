@@ -20,6 +20,8 @@ public interface SystemResourceMapper {
 
     List<String> findPermissionsByUserName(String userName);
     
+    List<SystemResource> findListByUserId(Integer userId);
+    
     int updateByPrimaryKeySelective(SystemResource record);
 
     int updateByPrimaryKey(SystemResource record);

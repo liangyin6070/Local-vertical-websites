@@ -1,34 +1,19 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : 本机
-Source Server Version : 50142
+Source Server         : localhost
+Source Server Version : 50621
 Source Host           : localhost:3306
-Source Database       : test
+Source Database       : website_local
 
 Target Server Type    : MYSQL
-Target Server Version : 50142
+Target Server Version : 50621
 File Encoding         : 65001
 
-Date: 2016-12-25 20:34:25
+Date: 2016-12-27 15:19:38
 */
 
 SET FOREIGN_KEY_CHECKS=0;
-
--- ----------------------------
--- Table structure for demo
--- ----------------------------
-DROP TABLE IF EXISTS `demo`;
-CREATE TABLE `demo` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(100) DEFAULT NULL,
-  `content` varchar(100) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of demo
--- ----------------------------
 
 -- ----------------------------
 -- Table structure for system_log
@@ -63,7 +48,7 @@ CREATE TABLE `system_resource` (
   `remark` varchar(255) DEFAULT NULL COMMENT '描述',
   `publish_status` tinyint(1) DEFAULT '1' COMMENT '是否发布',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COMMENT='资源权限表';
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8 COMMENT='资源权限表';
 
 -- ----------------------------
 -- Records of system_resource
@@ -74,6 +59,19 @@ INSERT INTO `system_resource` VALUES ('3', '2', '添加用户', 'BUTTON', '/mana
 INSERT INTO `system_resource` VALUES ('4', '2', '删除用户', 'BUTTON', '/manage/admin/user/delete', '0', 'user:delete', '删除用户', '1');
 INSERT INTO `system_resource` VALUES ('5', '2', '编辑用户', 'BUTTON', '/manage/admin/user/edit', '0', 'user:edit', '编辑用户', '1');
 INSERT INTO `system_resource` VALUES ('6', '2', '查询用户', 'BUTTON', '/manage/admin/user/ajaxList', '0', 'user:ajaxList', '查询用户', '1');
+INSERT INTO `system_resource` VALUES ('7', '1', '角色管理', 'MENU', '/manage/admin/role/toList', '0', 'role:toList', '角色管理', '1');
+INSERT INTO `system_resource` VALUES ('8', '7', '添加角色', 'BUTTON', '/manage/admin/role/add', '0', 'role:add', '添加角色', '1');
+INSERT INTO `system_resource` VALUES ('9', '7', '删除角色', 'BUTTON', '/manage/admin/role/delete', '0', 'role:delete', '删除角色', '1');
+INSERT INTO `system_resource` VALUES ('10', '7', '编辑角色', 'BUTTON', '/manage/admin/role/edit', '0', 'role:edit', '编辑角色', '1');
+INSERT INTO `system_resource` VALUES ('11', '7', '查询角色', 'BUTTON', '/manage/admin/role/ajaxList', '0', 'role:ajaxList', '查询角色', '1');
+INSERT INTO `system_resource` VALUES ('12', '2', '用户授权', 'BUTTON', '/manage/admin/user/setRole', '0', 'user:setRole', '用户授权', '1');
+INSERT INTO `system_resource` VALUES ('13', '7', '角色授权', 'BUTTON', '/manage/admin/role/setResource', '0', 'role:setResource', '角色授权', '1');
+INSERT INTO `system_resource` VALUES ('14', '1', '权限管理', 'MENU', '/manage/admin/resource/toList', '0', 'resource:toList', '权限管理', '1');
+INSERT INTO `system_resource` VALUES ('15', '14', '添加权限', 'BUTTON', '/manage/admin/resource/add', '0', 'resource:add', '添加权限', '1');
+INSERT INTO `system_resource` VALUES ('16', '14', '删除权限', 'BUTTON', '/manage/admin/resource/delete', '0', 'resource:delete', '删除权限', '1');
+INSERT INTO `system_resource` VALUES ('17', '14', '编辑权限', 'BUTTON', '/manage/admin/resource/edit', '0', 'resource:edit', '编辑权限', '1');
+INSERT INTO `system_resource` VALUES ('18', '14', '查询权限', 'BUTTON', '/manage/admin/resource/ajaxList', '0', 'resource:ajaxList', '查询权限', '1');
+INSERT INTO `system_resource` VALUES ('19', '1', '日志管理', 'MENU', '/manage/admin/log/toList', '0', 'log:toList', '日志管理', '1');
 
 -- ----------------------------
 -- Table structure for system_role
@@ -108,6 +106,23 @@ CREATE TABLE `system_role_resource` (
 -- ----------------------------
 INSERT INTO `system_role_resource` VALUES ('1', '1');
 INSERT INTO `system_role_resource` VALUES ('1', '2');
+INSERT INTO `system_role_resource` VALUES ('1', '3');
+INSERT INTO `system_role_resource` VALUES ('1', '4');
+INSERT INTO `system_role_resource` VALUES ('1', '5');
+INSERT INTO `system_role_resource` VALUES ('1', '6');
+INSERT INTO `system_role_resource` VALUES ('1', '7');
+INSERT INTO `system_role_resource` VALUES ('1', '8');
+INSERT INTO `system_role_resource` VALUES ('1', '9');
+INSERT INTO `system_role_resource` VALUES ('1', '10');
+INSERT INTO `system_role_resource` VALUES ('1', '11');
+INSERT INTO `system_role_resource` VALUES ('1', '12');
+INSERT INTO `system_role_resource` VALUES ('1', '13');
+INSERT INTO `system_role_resource` VALUES ('1', '14');
+INSERT INTO `system_role_resource` VALUES ('1', '15');
+INSERT INTO `system_role_resource` VALUES ('1', '16');
+INSERT INTO `system_role_resource` VALUES ('1', '17');
+INSERT INTO `system_role_resource` VALUES ('1', '18');
+INSERT INTO `system_role_resource` VALUES ('1', '19');
 
 -- ----------------------------
 -- Table structure for system_user

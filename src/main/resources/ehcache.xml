@@ -22,4 +22,22 @@
     timeToIdleSeconds="0"           
     timeToLiveSeconds="600"          
     memoryStoreEvictionPolicy="LFU" />  
+    <!-- 授权缓存 -->
+    <cache name="authorizationCache"
+           maxEntriesLocalHeap="2000"
+           eternal="false"
+           timeToIdleSeconds="3600"
+           timeToLiveSeconds="0"
+           overflowToDisk="false"
+           statistics="true">
+    </cache>
+    <!-- 认证缓存 -->
+    <cache name="authenticationCache"
+           maxEntriesLocalHeap="2000"
+           eternal="false"
+           timeToIdleSeconds="3600"
+           timeToLiveSeconds="0"
+           overflowToDisk="false"
+           statistics="true">
+    </cache> 
 </ehcache>

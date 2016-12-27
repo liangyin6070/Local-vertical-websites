@@ -17,11 +17,36 @@
 </style>
 </head>
 <body class="easyui-layout">
-	<jsp:include page="/webpage/admin/layout/head.jsp"></jsp:include>
-	<jsp:include page="/webpage/admin/layout/left.jsp"></jsp:include>
-	<jsp:include page="/webpage/admin/layout/right.jsp"></jsp:include>
-	<%-- <jsp:include page="/webpage/admin/layout/footer.jsp"></jsp:include> --%>
-	<jsp:include page="/webpage/admin/layout/center.jsp"></jsp:include>
+<!-- head start -->
+<div data-options="region:'north',border:false" style="height:60px;">
+后台管理系统
+</div>	
+<!-- head end -->
+<!-- right start -->
+<div data-options="region:'east',split:true,title:'East'" style="width:250px;">
+<div id="cc" class="easyui-calendar" style="width:230px;height:180px;"></div> 
+</div>
+<!-- right end -->
+<!-- left start -->
+<div data-options="region:'west',split:true,title:'系统菜单栏'" style="width:250px;">
+	<div id="accordion_left" class="easyui-accordion" fit=true> 
+		<c:forEach var="menu" items="${menus}">
+			<div title="${menu.name}">
+				<c:forEach var="child" items="${menu.childs}">
+					<a class="menu-item" href="#" onclick="addTab('${child.name}','${basePath}${child.url}');">${child.name}</a>
+				</c:forEach>
+			</div>
+		</c:forEach>  
+	</div>
+</div>
+<!-- left end -->
+<!-- center start -->
+<div data-options="region:'center'">
+	<div id="tt" class="easyui-tabs" fit="true" border="false" plain="true">
+		<div title="欢迎页" href="${basePath}/manage/blank"></div>
+	</div>
+</div>
+<!-- center end -->
 </body>
 <script type="text/javascript">
 $(function(){

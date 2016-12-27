@@ -21,6 +21,8 @@ public enum SessionKeyEnum {
 	
 	SessionKeyEnum(int id, String key, String remark) {
 		this.id = id;
+		this.key = key;
+		this.remark = remark;
 	}
 
 	public int getId() {

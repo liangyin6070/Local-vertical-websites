@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.liupro.web.manage.dao.SystemResourceMapper;
+import com.liupro.web.manage.model.SystemResource;
 import com.liupro.web.manage.service.SystemResourceServiceI;
 /**
  * 
@@ -16,7 +17,7 @@ import com.liupro.web.manage.service.SystemResourceServiceI;
  * @datetime 2016年12月23日 下午3:20:35
  */
 @Service("resourceService")
-public class SystemResourceService implements SystemResourceServiceI{
+public class SystemResourceService implements SystemResourceServiceI {
 
 	@Autowired
 	private SystemResourceMapper resourceMapper;
@@ -35,5 +36,12 @@ public class SystemResourceService implements SystemResourceServiceI{
 			}
 		}
 		return result;
+	}
+	/**
+	 * 根据用户ID查询权限列表
+	 */
+	@Override
+	public List<SystemResource> findListByUserId(Integer userId) {
+		return resourceMapper.findListByUserId(userId);
 	}
 }

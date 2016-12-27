@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.liupro.web.manage.dao.SystemResourceMapper" >
+
   <resultMap id="BaseResultMap" type="com.liupro.web.manage.model.SystemResource" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="pid" property="pid" jdbcType="INTEGER" />
@@ -12,8 +13,13 @@
     <result column="remark" property="remark" jdbcType="VARCHAR" />
     <result column="publish_status" property="publishStatus" jdbcType="BIT" />
   </resultMap>
+  
   <sql id="Base_Column_List" >
     id, pid, name, type, url, sort, permission, remark, publish_status
+  </sql>
+  
+  <sql id="columns">
+  	resource.id, resource.pid, resource.name, resource.type, resource.url, resource.sort, resource.permission, resource.remark, resource.publish_status
   </sql>
   
   <!-- 主键查询资源数据 -->
@@ -34,10 +40,23 @@
   	AND resource.publish_status = 1
   </select>
   
+  <!-- 根据用户账号ID查询资源 -->
+  <select id="findListByUserId" resultType="com.liupro.web.manage.model.SystemResource" parameterType="java.lang.Integer">
+  	SELECT resource.id, resource.pid, resource.name, resource.type, resource.url, resource.sort, resource.permission, resource.remark, resource.publish_status FROM system_resource resource
+  	LEFT JOIN system_role_resource rr ON resource.id = rr.resource_id
+  	LEFT JOIN system_user_role ur ON rr.role_id = ur.role_id
+  	LEFT JOIN system_user user ON user.id = ur.user_id
+  	WHERE user.id = #{userId, jdbcType=INTEGER}
+  	AND resource.publish_status = 1 AND resource.type = 'MENU'
+  </select>
+  
+  <!-- 删除 -->
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from system_resource
     where id = #{id,jdbcType=INTEGER}
   </delete>
+  
+  <!-- 新增 -->
   <insert id="insert" parameterType="com.liupro.web.manage.model.SystemResource" >
     insert into system_resource (id, pid, name, 
       type, url, sort, permission, 
@@ -46,6 +65,8 @@
       #{type,jdbcType=CHAR}, #{url,jdbcType=VARCHAR}, #{sort,jdbcType=INTEGER}, #{permission,jdbcType=VARCHAR}, 
       #{remark,jdbcType=VARCHAR}, #{publishStatus,jdbcType=BIT})
   </insert>
+  
+  <!-- 新增 -->
   <insert id="insertSelective" parameterType="com.liupro.web.manage.model.SystemResource" >
     insert into system_resource
     <trim prefix="(" suffix=")" suffixOverrides="," >
@@ -107,6 +128,8 @@
       </if>
     </trim>
   </insert>
+  
+  <!-- 编辑 -->
   <update id="updateByPrimaryKeySelective" parameterType="com.liupro.web.manage.model.SystemResource" >
     update system_resource
     <set >
@@ -137,6 +160,8 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
+  
+  <!-- 编辑 -->
   <update id="updateByPrimaryKey" parameterType="com.liupro.web.manage.model.SystemResource" >
     update system_resource
     set pid = #{pid,jdbcType=INTEGER},

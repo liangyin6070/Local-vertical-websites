@@ -20,5 +20,17 @@
     <name>show</name>  
     <tag-class>com.liupro.tag.DemoTag</tag-class>  
     <body-content>empty</body-content>  
+  </tag>
+  
+  <tag>
+  	<description>后台管理左边菜单栏</description>
+  	<name>menuTree</name>
+  	<tag-class>com.liupro.tag.MenuTreeTag</tag-class>
+  	<body-content>empty</body-content>
+  	
+  	<attribute>
+  		<name>userId</name>
+  		<required>true</required>
+  	</attribute>
   </tag>  
 </taglib>

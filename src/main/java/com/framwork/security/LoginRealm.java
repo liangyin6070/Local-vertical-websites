@@ -19,6 +19,10 @@ import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+
+import com.framwork.enums.SessionKeyEnum;
 import com.framwork.utils.MD5Utils;
 import com.liupro.web.manage.model.SystemUser;
 import com.liupro.web.manage.service.SystemResourceServiceI;
@@ -34,8 +38,14 @@ public class LoginRealm extends AuthorizingRealm {
 	
 	private static Logger log = LoggerFactory.getLogger(LoginRealm.class);
 	
+	@Autowired
+	@Qualifier("userService")
 	private SystemUserServiceI userService;
+	@Autowired
+	@Qualifier("roleService")
 	private SystemRoleServiceI roleService;
+	@Autowired
+	@Qualifier("resourceService")
 	private SystemResourceServiceI resourceService;
 	/**
 	 * 为当前登录的Subject授予角色和权限
@@ -79,7 +89,7 @@ public class LoginRealm extends AuthorizingRealm {
 			//密码不匹配
 			throw new IncorrectCredentialsException();
 		}
-		//setSession(SessionKeyEnum.key_admin.getKey(), user);//设置到session中
+		setSession(SessionKeyEnum.key_admin.getKey(), user);//设置到session中
 		//SimpleAuthenticationInfo auth = new SimpleAuthenticationInfo();
 		SimpleAuthenticationInfo auth = new SimpleAuthenticationInfo(user.getUserName(), pwd, getName());
 		return auth;

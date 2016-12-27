@@ -1,11 +1,15 @@
 package com.liupro.web.manage.controller;
 
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
@@ -28,11 +32,15 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.util.WebUtils;
 
 import com.framwork.core.spring.BaseRestController;
+import com.framwork.enums.SessionKeyEnum;
 import com.framwork.utils.WebParamUtils;
 import com.liupro.web.manage.model.SystemLog;
+import com.liupro.web.manage.model.SystemResource;
+import com.liupro.web.manage.model.SystemUser;
 import com.liupro.web.manage.service.SystemLogServiceI;
 import com.liupro.web.manage.service.SystemResourceServiceI;
 import com.liupro.web.manage.service.SystemUserServiceI;
+import com.liupro.web.manage.vo.SystemResourceVo;
 /**
  * 
  * @description 后台管理
@@ -172,6 +180,12 @@ public class AdminMainController extends BaseRestController {
 	 */
 	@RequestMapping(value="/manage/index", method=RequestMethod.GET)
 	public String toIndex(HttpServletRequest request, HttpServletResponse response, ModelMap model) {
+		SystemUser user = (SystemUser) request.getSession().getAttribute(SessionKeyEnum.key_admin.getKey());
+		List<SystemResource> resources = resourceService.findListByUserId(user.getId());
+		
+		List<SystemResourceVo> vo = createMenuTree(resources);
+		
+		model.addAttribute("menus", vo);
 		return "/admin/index";
 	}
 	/**
@@ -184,5 +198,38 @@ public class AdminMainController extends BaseRestController {
 	@RequestMapping(value="/manage/blank", method=RequestMethod.GET)
 	public String toBlank(HttpServletRequest request, HttpServletResponse response, ModelMap model) {
 		return "/admin/blank";
+	}
+	
+	public List<SystemResourceVo> createMenuTree(List<SystemResource> resources) {
+		List<SystemResourceVo> res = new ArrayList<SystemResourceVo>();
+		for(SystemResource resource : resources) {
+			if(resource.getPid() == 0) {
+				SystemResourceVo vo = new SystemResourceVo();
+				try {
+					BeanUtils.copyProperties(vo, resource);
+					recursive(resources, vo);
+				} catch (IllegalAccessException e) {
+					log.error("", e);
+				} catch (InvocationTargetException e) {
+					log.error("", e);
+				}
+				
+				res.add(vo);
+			}
+		}
+		return res;
+	}
+
+	public void recursive(List<SystemResource> resources, SystemResourceVo vo) throws IllegalAccessException, InvocationTargetException {
+		List<SystemResourceVo> childs = new ArrayList<SystemResourceVo>();
+		
+		for(SystemResource resource : resources) {
+			if(resource.getPid() == vo.getId()) {
+				SystemResourceVo child = new SystemResourceVo();
+				BeanUtils.copyProperties(child, resource);
+				childs.add(child);
+			}
+		}
+		vo.setChilds(childs);
 	}
 }
