@@ -39,6 +39,20 @@
     <!--扫描web相关的controller-->
     <context:component-scan base-package="com.liupro.web.**.controller"/>
 
+	<!-- 文件上传支持Bean -->
+	<!-- <bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="defaultEncoding" value="UTF-8" />
+		最大文件不能超过1GB
+		<property name="maxUploadSize" value="32505856" />
+		<property name="maxInMemorySize" value="4096" />
+		<property name="uploadTempDir" value="uploadDir/temp" />
+	</bean> -->
+	<!-- id="multipartResolver"必须是multipartResolver -->
+	  <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+	   <!-- maxUploadSize:文件上传的最大值以byte为单位 -->
+	   <property name="maxUploadSize" value="32505856"></property>
+	  </bean>
 	<!--全局异常捕捉 -->
 	<!-- <bean class="com.framwork.exception.GlobalExceptionResolver" /> -->
 
