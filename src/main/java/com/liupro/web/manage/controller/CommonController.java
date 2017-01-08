@@ -1,5 +1,6 @@
 package com.liupro.web.manage.controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
@@ -15,12 +16,16 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
+import org.springframework.web.util.WebUtils;
 
 import com.alibaba.fastjson.JSONObject;
 import com.framwork.core.spring.BaseRestController;
+import com.framwork.utils.HttpServletUtils;
 import com.framwork.utils.ResponseUtils;
+import com.framwork.utils.WebParamUtils;
 import com.liupro.web.manage.model.Demo;
 /**
  * 
@@ -37,43 +42,54 @@ public class CommonController extends BaseRestController {
 	public String toBlank() {
 		return "/admin/blank";
 	}
+	/**
+	 * 获取随机字符串
+	 * @return
+	 */
+	@RequestMapping(value = "/common/token")
+	@ResponseBody
+	public String getToken(HttpServletRequest request) {
+		String token = WebParamUtils.generateVerifyCode(12);
+		WebUtils.setSessionAttribute(request, "token", token);
+		return token;
+	}
 	
-	@RequestMapping(value="/common/upload/demo",method=RequestMethod.POST)
-	public void upload(@RequestParam(value = "demo_file", required = false) MultipartFile file, 
-			HttpServletRequest request, HttpServletResponse response) {
-//    	String path = request.getSession().getServletContext().getRealPath("upload");  
-//	      String fileName = file.getOriginalFilename();  
-//	      File targetFile = new File(path, fileName);  
-//	      if(!targetFile.exists()){  
-//	          targetFile.mkdirs();  
-//	      }  
-//	      //保存  
-//	      try {  
-//	          file.transferTo(targetFile); 
-//	      } catch (Exception e) {  
-//	          e.printStackTrace();  
-//	      }  
-    //  model.addAttribute("fileUrl", request.getContextPath()+"/upload/"+fileName); 
+	/**
+	 * 统一上传文件入口
+	 * @param request
+	 * @param response
+	 * @param file
+	 * @param token 随机字符串，保存在session中
+	 * @param timestamp 时间戳，精确到毫秒
+	 * @param signature 签名
+	 */
+	@RequestMapping(value="/common/upload",method=RequestMethod.POST)
+	public void upload(HttpServletRequest request, HttpServletResponse response,
+			@RequestParam(value = "file", required = true) MultipartFile file,
+			@RequestParam(value = "token", required = true) String token,
+			@RequestParam(value = "timestamp", required = true) String timestamp,
+			@RequestParam(value = "signature", required = true) String signature) {
 		
-		JSONObject obj = new JSONObject();
-		ImportParams params = new ImportParams();
-		params.setTitleRows(1);
-		params.setHeadRows(1);
-//		params.setNeedSave(true);
-//		params.setSaveUrl("upload");
-		try {
-			List<Demo> list = ExcelImportUtil.importExcel(file.getInputStream(), Demo.class, params);
-			for (Demo demo : list) {
-				System.out.println(demo.getId() + "," + demo.getName() + "," + demo.getAddress());
-			}
-			obj.put("success", true);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		ResponseUtils.renderJson(response, obj.toJSONString());
+		
+		
+    	JSONObject result = new JSONObject();
+		String path = request.getSession().getServletContext().getRealPath("upload");  
+		String fileName = file.getOriginalFilename();  
+		File targetFile = new File(path, fileName);  
+		if(!targetFile.exists()){  
+			targetFile.mkdirs();  
+		}  
+		//保存  
+		try {  
+			file.transferTo(targetFile); 
+			result.put(SUCCESS, true);
+			result.put(MSG, "文件上传成功");
+			result.put("filePath", "/upload/"+fileName);
+		} catch (Exception e) {  
+			log.error("上传文件失败", e);
+			result.put(SUCCESS, false);
+			result.put(MSG, "上传文件失败");
+		}  
+		ResponseUtils.renderJson(response, result.toJSONString());
 	}
 }

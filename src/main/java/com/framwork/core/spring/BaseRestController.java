@@ -3,24 +3,27 @@ package com.framwork.core.spring;
 import java.util.Date;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import net.sf.json.JSONObject;
 import org.apache.commons.lang.StringUtils;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 
 /**
- * 基础controller抽象类
  * 
- * @author 刘德伟
- * 
+ * @class com.framwork.core.spring.BaseRestController
+ * @author ldw
+ * @date 2017年1月8日 下午11:44:44
+ * @description 基础controller抽象类
  */
 public abstract class BaseRestController {
+	
+	public static final String MSG = "msg";
+	
+	public static final String SUCCESS = "success";
+	
 	@InitBinder
 	public void initBinder(ServletRequestDataBinder binder) {
 		binder.registerCustomEditor(Date.class, new DateConvertEditor());
 	}
-
 	/*
 	 * 获取提交的参数
 	 */
@@ -80,40 +83,6 @@ public abstract class BaseRestController {
 		String userAgent = "";
 		userAgent = request.getHeader("user-agent");
 		return userAgent.substring(userAgent.indexOf("(")+1, userAgent.indexOf(")"));
-	}
-	/**
-	 * 
-	 * title: 成功返回json状态
-	 * date:2016-4-27
-	 * author:ldw
-	 */
-	public void setSuccess(ModelMap model) {
-		model.addAttribute("success", true);
-	}
-	/**
-	 * 
-	 * title: 失败返回状态
-	 * date:2016-4-27
-	 * author:ldw
-	 */
-	public void setFailure(ModelMap model) {
-		model.addAttribute("success", false);
-	}
-
-	/**
-	 * 将日志写入阿里云日志服务器
-	 * @param index 阿里云日志服务器索引
-	 * @param topic 阿里云日志服务器标题
-	 * @param keys json键名
-	 * @param values json键值
-	 * @param now 写入时间
-	 */
-	public void writeLogs(String index, String topic, String[] keys, Object[] values, Date now) {
-		JSONObject json = new JSONObject();
-		for(int i = 0; i < keys.length; i++) {
-			json.element(keys[i], values[i]);
-		}
-		//AliyunLogUtils.writeLogs(index, topic, json.toString(), now);
 	}
 	/**
 	 * 获取访问url
