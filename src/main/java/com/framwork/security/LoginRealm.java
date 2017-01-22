@@ -77,17 +77,17 @@ public class LoginRealm extends AuthorizingRealm {
 		SystemUser user = userService.selectByUserName(username);
 		if(user == null) {
 			//账号不存在
-			throw new UnknownAccountException();
+			throw new UnknownAccountException("账号不存在");
 		}
 		if(user.getIsLocked()) {
 			//账号锁定
-			throw new LockedAccountException();
+			throw new LockedAccountException("账号被锁定");
 		}
 		//密码加盐再MD5进行判定
 		String newPwd = MD5Utils.GetMD5Code(pwd + user.getToken());
 		if(!newPwd.equals(user.getUserPwd())) {
 			//密码不匹配
-			throw new IncorrectCredentialsException();
+			throw new IncorrectCredentialsException("密码不匹配");
 		}
 		setSession(SessionKeyEnum.key_admin.getKey(), user);//设置到session中
 		//SimpleAuthenticationInfo auth = new SimpleAuthenticationInfo();
