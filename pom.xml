@@ -12,7 +12,16 @@
 		<mybatis.version>3.4.1</mybatis.version>
 		<mybatis.spring.version>1.3.0</mybatis.spring.version>
 		<org.springframework-version>4.3.4.RELEASE</org.springframework-version>
+		<shiro-version>1.3.2</shiro-version>
 		<jsoup>1.7.3</jsoup>
+		<freemarker-version>2.3.20</freemarker-version>
+		<mysql-version>5.1.34</mysql-version>
+		<redis-version>2.6.2</redis-version>
+		<easypoi-version>2.3.1</easypoi-version>
+		<jackson-version>2.4.4</jackson-version>
+		<slf4j-version>1.7.2</slf4j-version>
+		<log4j-version>1.2.17</log4j-version>
+		<junit-version>4.11</junit-version>
 		<!-- 编译时的编码 -->
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.encoding>UTF-8</maven.compiler.encoding>
@@ -23,7 +32,7 @@
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>4.11</version>
+			<version>${junit-version}</version>
 			<scope>test</scope>
 		</dependency>
 
@@ -56,7 +65,7 @@
 		<dependency>
 			<groupId>org.freemarker</groupId>
 			<artifactId>freemarker</artifactId>
-			<version>2.3.20</version>
+			<version>${freemarker-version}</version>
 		</dependency>
 
 		<!-- spring -->
@@ -139,23 +148,22 @@
 		<dependency>
 			<groupId>org.apache.shiro</groupId>
 			<artifactId>shiro-ehcache</artifactId>
-			<version>1.3.2</version>
+			<version>${shiro-version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.shiro</groupId>
 			<artifactId>shiro-web</artifactId>
-			<version>1.3.2</version>
+			<version>${shiro-version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.shiro</groupId>
 			<artifactId>shiro-spring</artifactId>
-			<version>1.3.2</version>
+			<version>${shiro-version}</version>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/org.apache.shiro/shiro-quartz -->
 		<dependency>
 		    <groupId>org.apache.shiro</groupId>
 		    <artifactId>shiro-quartz</artifactId>
-		    <version>1.3.2</version>
+		    <version>${shiro-version}</version>
 		</dependency>
 		
 
@@ -205,7 +213,7 @@
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
-			<version>5.1.34</version>
+			<version>${mysql-version}</version>
 		</dependency>
 
 		<dependency>
@@ -218,19 +226,18 @@
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-databind</artifactId>
-			<version>2.4.4</version>
+			<version>${jackson-version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-core</artifactId>
-			<version>2.4.4</version>
+			<version>${jackson-version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-annotations</artifactId>
-			<version>2.4.4</version>
+			<version>${jackson-version}</version>
 		</dependency>
-
 		<dependency>
 			<groupId>org.codehaus.jackson</groupId>
 			<artifactId>jackson-mapper-asl</artifactId>
@@ -249,17 +256,17 @@
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
-			<version>1.7.2</version>
+			<version>${slf4j-version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-log4j12</artifactId>
-			<version>1.7.2</version>
+			<version>${slf4j-version}</version>
 		</dependency>
 		<dependency>
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
-			<version>1.2.17</version>
+			<version>${log4j-version}</version>
 		</dependency>
 
 		<!-- Apache commons -->
@@ -329,61 +336,27 @@
 			<artifactId>dom4j</artifactId>
 			<version>1.6.1</version>
 		</dependency>
-
 		<!-- redis -->
 		<dependency>
 			<groupId>redis.clients</groupId>
 			<artifactId>jedis</artifactId>
-			<version>2.6.2</version>
+			<version>${redis-version}</version>
 		</dependency>
-
-		<!-- json -->
-		<dependency>
-			<groupId>net.sf.json-lib</groupId>
-			<artifactId>json-lib</artifactId>
-			<version>2.4</version>
-			<classifier>jdk15</classifier>
-		</dependency>
-		<!-- httpclient -->
-		<dependency>
-			<groupId>org.apache.httpcomponents</groupId>
-			<artifactId>httpclient</artifactId>
-			<version>4.4</version>
-		</dependency>
-		<dependency>
-			<groupId>com.thoughtworks.xstream</groupId>
-			<artifactId>xstream</artifactId>
-			<version>1.4.9</version>
-		</dependency>
-		<!-- 阿里云日志服务 -->
-		<dependency>
-			<groupId>com.aliyun.openservices</groupId>
-			<artifactId>aliyun-log</artifactId>
-			<version>0.6.3</version>
-		</dependency>
-
-		<!-- 二维码生成包 -->
-		<dependency>
-			<groupId>com.google.zxing</groupId>
-			<artifactId>core</artifactId>
-			<version>3.1.0</version>
-		</dependency>
-		
 		<!-- easypoi -->
 		<dependency>
             <groupId>org.jeecg</groupId>
             <artifactId>easypoi-base</artifactId>
-            <version>2.3.1</version>
+            <version>${easypoi-version}</version>
         </dependency>
         <dependency>
             <groupId>org.jeecg</groupId>
             <artifactId>easypoi-web</artifactId>
-            <version>2.3.1</version>
+            <version>${easypoi-version}</version>
         </dependency>
         <dependency>
             <groupId>org.jeecg</groupId>
             <artifactId>easypoi-annotation</artifactId>
-            <version>2.3.1</version>
+            <version>${easypoi-version}</version>
         </dependency>
 	</dependencies>
 	<build>
