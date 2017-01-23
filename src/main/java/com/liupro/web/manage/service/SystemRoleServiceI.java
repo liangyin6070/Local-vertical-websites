@@ -3,15 +3,21 @@ package com.liupro.web.manage.service;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import com.liupro.web.manage.model.SystemRole;
 /**
  * 
  * @description 角色业务层接口
  * @author ldw
  * @datetime 2017年1月23日 下午4:07:01
  */
-
-import com.liupro.web.manage.model.SystemRole;
 public interface SystemRoleServiceI {
+	
+	void deleteById(Integer id);
+	
+	int saveRole(SystemRole role);
+	
+	void updateRole(SystemRole role);
+	
 	/**
 	 * 根据用户账号获取角色值
 	 * @param userName
@@ -24,4 +30,6 @@ public interface SystemRoleServiceI {
 	 * @return
 	 */
 	List<SystemRole> findByPage(Map<String, Object> params);
+	
+	long count(Map<String, Object> params);
 }

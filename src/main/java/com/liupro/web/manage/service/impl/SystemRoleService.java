@@ -45,5 +45,33 @@ public class SystemRoleService implements SystemRoleServiceI{
 	public List<SystemRole> findByPage(Map<String, Object> params) {
 		return roleMapper.findByPage(params);
 	}
+	/**
+	 * 删除角色
+	 */
+	@Override
+	public void deleteById(Integer id) {
+		roleMapper.deleteByPrimaryKey(id);
+	}
+	/**
+	 * 新增角色
+	 */
+	@Override
+	public int saveRole(SystemRole role) {
+		return roleMapper.insertSelective(role);
+	}
+	/**
+	 * 更新角色数据
+	 */
+	@Override
+	public void updateRole(SystemRole role) {
+		roleMapper.updateByPrimaryKeySelective(role);
+	}
+	/**
+	 * 获取角色数量
+	 */
+	@Override
+	public long count(Map<String, Object> params) {
+		return roleMapper.count(params);
+	}
 	
 }
