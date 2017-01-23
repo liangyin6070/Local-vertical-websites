@@ -3,6 +3,8 @@ package com.liupro.web.manage.controller;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -32,6 +34,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.util.WebUtils;
 
 import com.framwork.core.spring.BaseRestController;
+import com.framwork.enums.OperateTypeEnum;
 import com.framwork.enums.SessionKeyEnum;
 import com.framwork.utils.WebParamUtils;
 import com.liupro.web.manage.model.SystemLog;
@@ -49,7 +52,7 @@ import com.liupro.web.manage.vo.SystemResourceVo;
  */
 @Controller
 public class AdminMainController extends BaseRestController {
-	private static Logger log = LoggerFactory.getLogger(AdminMainController.class);
+	private static Logger logger = LoggerFactory.getLogger(AdminMainController.class);
 	@Autowired
 	private SystemUserServiceI userService;
 	@Autowired
@@ -91,7 +94,7 @@ public class AdminMainController extends BaseRestController {
         try {
 			WebParamUtils.outputImage(w, h, response.getOutputStream(), verifyCode);
 		} catch (IOException e) {
-			log.error("验证码图片生成异常", e);
+			logger.error("验证码图片生成异常", e);
 		} 
 	}
 	/**
@@ -104,10 +107,17 @@ public class AdminMainController extends BaseRestController {
 			@RequestParam(value="verifiCode", required=false)String verifiCode,
 			@RequestParam(value="isRememberMe", defaultValue="false") Boolean isRememberMe,
 			ModelMap model) {
-		
+		Date now = Calendar.getInstance().getTime();
 		String sessionCode = (String) WebUtils.getSessionAttribute(request, "verCode");
+		SystemLog log = new SystemLog();
+		log.setOperateTime(now);
+		log.setRemoteAddr(getIpAddr(request));
+		log.setOperateType(OperateTypeEnum.LOGIN.getCode());
+		
 		if(StringUtils.isBlank(username) || StringUtils.isBlank(password)) {
 			model.addAttribute("message_login", "账号/密码不能为空");
+			
+			logService.insertLog(log);
 			return "/admin/login";
 		} else if(StringUtils.isBlank(verifiCode) || StringUtils.equals(verifiCode, sessionCode)) {
 			model.addAttribute("message_login", "验证码不正确");
@@ -121,20 +131,20 @@ public class AdminMainController extends BaseRestController {
 		try {
 			subject.login(token);
 		} catch(UnknownAccountException uae){  
-            log.error("对用户[" + username + "]进行登录验证..验证未通过,未知账户");  
+            logger.error("对用户[" + username + "]进行登录验证..验证未通过,未知账户");  
             model.addAttribute("message_login", "未知账户");  
         }catch(IncorrectCredentialsException ice){  
-        	log.error("对用户[" + username + "]进行登录验证..验证未通过,错误的凭证");  
+        	logger.error("对用户[" + username + "]进行登录验证..验证未通过,错误的凭证");  
             model.addAttribute("message_login", "用户名或密码不正确");  
         }catch(LockedAccountException lae){  
-        	log.error("对用户[" + username + "]进行登录验证..验证未通过,账户已锁定");  
+        	logger.error("对用户[" + username + "]进行登录验证..验证未通过,账户已锁定");  
             model.addAttribute("message_login", "账户已锁定");  
         }catch(ExcessiveAttemptsException eae){  
-        	log.error("对用户[" + username + "]进行登录验证..验证未通过,错误次数过多");  
+        	logger.error("对用户[" + username + "]进行登录验证..验证未通过,错误次数过多");  
             model.addAttribute("message_login", "用户名或密码错误次数过多");  
         }catch(AuthenticationException ae){  
             //通过处理Shiro的运行时AuthenticationException就可以控制用户登录失败或密码错误时的情景  
-        	log.error("对用户[" + username + "]进行登录验证..验证未通过,堆栈轨迹如下", ae);   
+        	logger.error("对用户[" + username + "]进行登录验证..验证未通过,堆栈轨迹如下", ae);   
             model.addAttribute("message_login", "用户名或密码不正确");  
         } 
 		
@@ -170,7 +180,7 @@ public class AdminMainController extends BaseRestController {
 	 * 注册用户
 	 */
 	@RequestMapping(value="/manage/register", method=RequestMethod.POST)
-	public void register() {
+	public void register(HttpServletRequest request, HttpServletResponse response, ModelMap model) {
 		
 	}
 	
@@ -199,7 +209,11 @@ public class AdminMainController extends BaseRestController {
 	public String toBlank(HttpServletRequest request, HttpServletResponse response, ModelMap model) {
 		return "/admin/blank";
 	}
-	
+	/**
+	 * 生成树形模型
+	 * @param resources
+	 * @return
+	 */
 	public List<SystemResourceVo> createMenuTree(List<SystemResource> resources) {
 		List<SystemResourceVo> res = new ArrayList<SystemResourceVo>();
 		for(SystemResource resource : resources) {
@@ -209,9 +223,9 @@ public class AdminMainController extends BaseRestController {
 					BeanUtils.copyProperties(vo, resource);
 					recursive(resources, vo);
 				} catch (IllegalAccessException e) {
-					log.error("", e);
+					logger.error("属性不符合", e);
 				} catch (InvocationTargetException e) {
-					log.error("", e);
+					logger.error("属性不符合", e);
 				}
 				
 				res.add(vo);

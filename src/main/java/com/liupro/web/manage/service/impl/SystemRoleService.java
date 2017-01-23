@@ -2,12 +2,14 @@ package com.liupro.web.manage.service.impl;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.liupro.web.manage.dao.SystemRoleMapper;
+import com.liupro.web.manage.model.SystemRole;
 import com.liupro.web.manage.service.SystemRoleServiceI;
 /**
  * 
@@ -35,6 +37,13 @@ public class SystemRoleService implements SystemRoleServiceI{
 			}
 		}
 		return result;
+	}
+	/**
+	 * 分页获取角色列表
+	 */
+	@Override
+	public List<SystemRole> findByPage(Map<String, Object> params) {
+		return roleMapper.findByPage(params);
 	}
 	
 }

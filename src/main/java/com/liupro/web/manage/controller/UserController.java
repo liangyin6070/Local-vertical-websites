@@ -32,7 +32,7 @@ import com.framwork.utils.ResponseUtils;
 @Controller
 public class UserController extends BaseRestController {
 
-	private static Logger log = LoggerFactory.getLogger(UserController.class);
+	private static Logger logger = LoggerFactory.getLogger(UserController.class);
 	@Autowired
 	private SystemUserServiceI userService;
 	/**
@@ -80,7 +80,7 @@ public class UserController extends BaseRestController {
 			result.put("success",true);
 			result.put("msg", "用户新增成功");
 		} catch (Exception e) {
-			log.error("新增用户失败", e);
+			logger.error("新增用户失败", e);
 		}
 		
 		ResponseUtils.renderJson(response, result.toJSONString());

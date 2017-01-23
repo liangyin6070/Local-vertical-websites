@@ -60,7 +60,7 @@ public class LoginRealm extends AuthorizingRealm {
 		
 		SystemUser user = userService.selectByUserName(username);
 		if(user == null || user.getIsLocked()) {
-			throw new AuthorizationException();
+			throw new AuthorizationException("用户不存在或者用户被锁定");
 		}
 		SimpleAuthorizationInfo authc = new SimpleAuthorizationInfo(); 
 		authc.setRoles(roleService.findRolesByUserName(username));//设置分配给用户的角色值

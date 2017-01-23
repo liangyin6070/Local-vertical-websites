@@ -49,5 +49,111 @@
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
+
+<div class="wrapper" style="margin-top:85px;">
+	<div class="container" role="main">
+		<div class="row">
+			<div class="col-lg-9 col-md-9 col-sm-9">
+				<div class="row">
+					<div class="col-lg-6 col-md-6 col-sm-6">
+						<ul>
+							<li>eqweqweqweqweqwe</li>
+							<li>eqweqweqweqweqwe</li>
+							<li>eqweqweqweqweqwe</li>
+							<li>eqweqweqweqweqwe</li>
+							<li>eqweqweqweqweqwe</li>
+							<li>eqweqweqweqweqwe</li>
+							<li>eqweqweqweqweqwe</li>
+						</ul>
+					</div>
+					<div class="col-lg-6 col-md-6 col-sm-6">
+						<ul>
+							<li>eqweqweqweqweqwe</li>
+							<li>eqweqweqweqweqwe</li>
+							<li>eqweqweqweqweqwe</li>
+							<li>eqweqweqweqweqwe</li>
+							<li>eqweqweqweqweqwe</li>
+							<li>eqweqweqweqweqwe</li>
+							<li>eqweqweqweqweqwe</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-3 col-md-3 col-sm-3">
+				<div class="panel panel-primary">
+					  <div class="panel-heading">今日日记</div>
+					  <div class="panel-body">
+						<ul>
+							<li>eqweqweqweqweqwe</li>
+							<li>eqweqweqweqweqwe</li>
+							<li>eqweqweqweqweqwe</li>
+							<li>eqweqweqweqweqwe</li>
+							<li>eqweqweqweqweqwe</li>
+							<li>eqweqweqweqweqwe</li>
+							<li>eqweqweqweqweqwe</li>
+						</ul>
+					  </div>
+				</div>
+				<div class="panel panel-success">
+					  <div class="panel-heading">技术导读</div>
+					  <div class="panel-body">
+					    <ul>
+							<li>eqweqweqweqweqwe</li>
+							<li>eqweqweqweqweqwe</li>
+							<li>eqweqweqweqweqwe</li>
+							<li>eqweqweqweqweqwe</li>
+							<li>eqweqweqweqweqwe</li>
+							<li>eqweqweqweqweqwe</li>
+							<li>eqweqweqweqweqwe</li>
+						</ul>
+					  </div>
+				</div>
+				<div class="panel panel-info">
+					  <div class="panel-heading"></div>
+					  <div class="panel-body">
+					    <ul>
+							<li>eqweqweqweqweqwe</li>
+							<li>eqweqweqweqweqwe</li>
+							<li>eqweqweqweqweqwe</li>
+							<li>eqweqweqweqweqwe</li>
+							<li>eqweqweqweqweqwe</li>
+							<li>eqweqweqweqweqwe</li>
+							<li>eqweqweqweqweqwe</li>
+						</ul>
+					  </div>				
+				</div>
+				<div class="panel panel-warning">
+					  <div class="panel-heading"></div>
+					  <div class="panel-body">
+					    <ul>
+							<li>eqweqweqweqweqwe</li>
+							<li>eqweqweqweqweqwe</li>
+							<li>eqweqweqweqweqwe</li>
+							<li>eqweqweqweqweqwe</li>
+							<li>eqweqweqweqweqwe</li>
+							<li>eqweqweqweqweqwe</li>
+							<li>eqweqweqweqweqwe</li>
+						</ul>
+					  </div>				
+				</div>
+				<div class="panel panel-danger">
+					  <div class="panel-heading">友情链接</div>
+					  <div class="panel-body">
+					    <ul>
+							<li>eqweqweqweqweqwe</li>
+							<li>eqweqweqweqweqwe</li>
+							<li>eqweqweqweqweqwe</li>
+							<li>eqweqweqweqweqwe</li>
+							<li>eqweqweqweqweqwe</li>
+							<li>eqweqweqweqweqwe</li>
+							<li>eqweqweqweqweqwe</li>
+						</ul>
+					  </div>				
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
 </body>
 </html>
