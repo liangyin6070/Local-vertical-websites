@@ -190,13 +190,13 @@ public class AdminMainController extends BaseRestController {
 	 */
 	@RequestMapping(value="/manage/index", method=RequestMethod.GET)
 	public String toIndex(HttpServletRequest request, HttpServletResponse response, ModelMap model) {
-		SystemUser user = (SystemUser) request.getSession().getAttribute(SessionKeyEnum.key_admin.getKey());
-		List<SystemResource> resources = resourceService.findListByUserId(user.getId());
-		
-		List<SystemResourceVo> vo = createMenuTree(resources);
-		
-		model.addAttribute("menus", vo);
-		return "/admin/index";
+//		SystemUser user = (SystemUser) request.getSession().getAttribute(SessionKeyEnum.key_admin.getKey());
+//		List<SystemResource> resources = resourceService.findListByUserId(user.getId());
+//		
+//		List<SystemResourceVo> vo = createMenuTree(resources);
+//		
+//		model.addAttribute("menus", vo);
+		return "/admin/NewIndex";
 	}
 	/**
 	 * tab首页，显示系统信息
