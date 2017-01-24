@@ -14,8 +14,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.framwork.utils.SpringBeanUtils;
 import com.liupro.web.manage.model.SystemResource;
 import com.liupro.web.manage.service.SystemResourceServiceI;
+import com.liupro.web.manage.service.impl.SystemResourceService;
 import com.liupro.web.manage.vo.SystemResourceVo;
 
 /**
@@ -28,7 +30,7 @@ public class MenuTreeTag extends SimpleTagSupport {
 
 	private static Logger log = LoggerFactory.getLogger(MenuTreeTag.class);
 	
-	@Autowired
+//	@Autowired
 	private SystemResourceServiceI resourceService;
 
 	private Integer userId;
@@ -43,6 +45,7 @@ public class MenuTreeTag extends SimpleTagSupport {
 
 	@Override
 	public void doTag() throws JspException, IOException {
+		resourceService = SpringBeanUtils.getBean(SystemResourceService.class);
 		List<SystemResource> resources = resourceService.findListByUserId(userId);
 		List<SystemResourceVo> res = createMenuTree(resources);
 
@@ -62,7 +65,11 @@ public class MenuTreeTag extends SimpleTagSupport {
 		}
 		out.write("</div></div>");
 	}
-
+	/**
+	 * 生成树形结构
+	 * @param resources
+	 * @return
+	 */
 	public List<SystemResourceVo> createMenuTree(List<SystemResource> resources) {
 		List<SystemResourceVo> res = new ArrayList<SystemResourceVo>();
 		for(SystemResource resource : resources) {

@@ -28,7 +28,8 @@
 </div>
 <!-- right end -->
 <!-- left start -->
-<div data-options="region:'west',split:true,title:'系统菜单栏'" style="width:250px;">
+<frontTag:menuTree userId="1"/>
+<%-- <div data-options="region:'west',split:true,title:'系统菜单栏'" style="width:250px;">
 	<div id="accordion_left" class="easyui-accordion" fit=true> 
 		<c:forEach var="menu" items="${menus}">
 			<div title="${menu.name}">
@@ -38,7 +39,7 @@
 			</div>
 		</c:forEach>  
 	</div>
-</div>
+</div> --%>
 <!-- left end -->
 <!-- center start -->
 <div data-options="region:'center'">

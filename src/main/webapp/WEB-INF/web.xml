@@ -48,7 +48,12 @@
 		<description>Introspector缓存清除监听器</description>
 		<listener-class>org.springframework.web.util.IntrospectorCleanupListener</listener-class>
 	</listener>
-
+	
+	<listener>
+		<description>上下文监听器</description>
+		<listener-class>com.framwork.listener.Application</listener-class>
+	</listener>
+	
 	<!-- springMVC -->
 	<servlet>
 		<description>springMVC配置</description>
