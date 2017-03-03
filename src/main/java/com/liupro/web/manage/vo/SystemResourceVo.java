@@ -23,6 +23,8 @@ public class SystemResourceVo {
 
     private Boolean publishStatus;
 
+    private String icon;
+    
     private List<SystemResourceVo> childs = new ArrayList<SystemResourceVo>();
     
     public Integer getId() {
@@ -103,6 +105,14 @@ public class SystemResourceVo {
 
 	public void setChilds(List<SystemResourceVo> childs) {
 		this.childs = childs;
+	}
+
+	public String getIcon() {
+		return icon;
+	}
+
+	public void setIcon(String icon) {
+		this.icon = icon;
 	}
     
     

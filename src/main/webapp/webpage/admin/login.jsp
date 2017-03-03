@@ -15,7 +15,7 @@
     <a href="${basePath}/manage/index" style="font: 35px bold;">粤西后台管理系统</a>
 </div>
 <div class="logina-main main clearfix">
-    <div class="tab-con">
+    <div class="tab-con" style="padding-left: 200px;">
         <form id="form-login" method="post" action="${basePath}/manage/login">
             <div id='login-error' class="error-tip">${message_login}</div>
             <table border="0" cellspacing="0" cellpadding="0">
@@ -34,7 +34,7 @@
                         </td>
                         <td></td>
                     </tr>
-                    <tr id="tr-vcode">
+                   <%--  <tr id="tr-vcode">
                         <th>验证码</th>
                         <td width="245">
                             <div class="valid">
@@ -43,7 +43,7 @@
                             </div>
                         </td>
                         <td></td>
-                    </tr>
+                    </tr> --%>
                     <tr class="find">
                         <th></th>
                         <td>
@@ -66,10 +66,10 @@
             <input type="hidden" name="refer" value="${refer}" />
         </form>
     </div>
-    <div class="reg">
+    <%-- <div class="reg">
         <p>还没有账号？<br>赶快免费注册一个吧！</p>
         <a class="reg-btn" href="${basePath}/manage/toRegister">立即免费注册</a>
-    </div>
+    </div> --%>
 </div>
 <div id="footer">
     <div class="copyright">Copyright © 2017 www.liudw2.cn. All Rights Reserved. liudw 版权所有</div>

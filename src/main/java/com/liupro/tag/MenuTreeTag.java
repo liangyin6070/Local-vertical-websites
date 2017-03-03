@@ -104,7 +104,7 @@ public class MenuTreeTag extends SimpleTagSupport {
 			if (!childs.isEmpty()) {
 				HTML.append("<ul class=\"nav nav-second-level\">");
 				for (SystemResourceVo child : childs) {
-					HTML.append("<li><a class=\"J_menuItem\" href=\"/leaner"+child.getUrl()+"\">"+child.getName()+"</a></li>");
+					HTML.append("<li><a class=\"J_menuItem\" href=\""+child.getUrl()+"\">"+child.getName()+"</a></li>");
 				}
 				HTML.append("</ul>");
 			}

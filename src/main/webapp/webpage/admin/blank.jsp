@@ -6,10 +6,10 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>首页</title>
 <jsp:include page="/common/meta.jsp" />
-<jsp:include page="/common/easyui.jsp" />
+<%-- <jsp:include page="/common/easyui.jsp" />
 
 <link rel="stylesheet" type="text/css" href="${commonPath}/uploadify/uploadify.css" />
-<script type="text/javascript" src="${commonPath}/uploadify/jquery.uploadify.min.js"></script>
+<script type="text/javascript" src="${commonPath}/uploadify/jquery.uploadify.min.js"></script> --%>
 </head>
 <body>
 <h2>欢迎使用粤西后台管理系统</h2>
@@ -18,7 +18,7 @@
     <p>panel content.</p>   
     <p>panel content.</p>   
 </div>  -->
-<div>
+<!-- <div>
 	<table>
 		<tr>
 			<td><label>上传课件：</td>
@@ -26,9 +26,9 @@
             <td><div id="fileQueue"></div></td>
 		</tr>
 	</table>
-</div>
+</div> -->
 </body>
-<script type="text/javascript">
+<!-- <script type="text/javascript">
 $(function(){
 	$("#uploadify").uploadify({
         'uploader': '${basePath}/common/upload/demo',
@@ -54,5 +54,5 @@ $(function(){
         } */
     });
 });
-</script>
+</script> -->
 </html>

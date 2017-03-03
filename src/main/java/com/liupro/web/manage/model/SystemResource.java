@@ -19,6 +19,8 @@ public class SystemResource {
 
     private Boolean publishStatus;
 
+    private String icon;
+    
     public Integer getId() {
         return id;
     }
@@ -90,4 +92,13 @@ public class SystemResource {
     public void setPublishStatus(Boolean publishStatus) {
         this.publishStatus = publishStatus;
     }
+
+	public String getIcon() {
+		return icon;
+	}
+
+	public void setIcon(String icon) {
+		this.icon = icon;
+	}
+    
 }

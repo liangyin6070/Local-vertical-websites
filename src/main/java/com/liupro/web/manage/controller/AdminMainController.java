@@ -20,6 +20,7 @@ import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.LockedAccountException;
 import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -104,11 +105,11 @@ public class AdminMainController extends BaseRestController {
 	@RequestMapping(value="/manage/login", method=RequestMethod.POST)
 	public String login(HttpServletRequest request,@RequestParam(value="username", required=true) String username, 
 			@RequestParam(value="password", required=true)String password, 
-			@RequestParam(value="verifiCode", required=false)String verifiCode,
+			//@RequestParam(value="verifiCode", required=false)String verifiCode,
 			@RequestParam(value="isRememberMe", defaultValue="false") Boolean isRememberMe,
 			ModelMap model) {
 		Date now = Calendar.getInstance().getTime();
-		String sessionCode = (String) WebUtils.getSessionAttribute(request, "verCode");
+		//String sessionCode = (String) WebUtils.getSessionAttribute(request, "verCode");
 		SystemLog log = new SystemLog();
 		log.setOperateTime(now);
 		log.setRemoteAddr(getIpAddr(request));
@@ -119,10 +120,10 @@ public class AdminMainController extends BaseRestController {
 			
 			logService.insertLog(log);
 			return "/admin/login";
-		} else if(StringUtils.isBlank(verifiCode) || StringUtils.equals(verifiCode, sessionCode)) {
+		} /*else if(StringUtils.isBlank(verifiCode) || StringUtils.equals(verifiCode, sessionCode)) {
 			model.addAttribute("message_login", "验证码不正确");
 			return "/admin/login";
-		}  
+		}  */
 		
 		//验证用户密码是否匹配
 		UsernamePasswordToken token = new UsernamePasswordToken(username, password);
@@ -166,7 +167,7 @@ public class AdminMainController extends BaseRestController {
 	@RequestMapping(value="/manage/logout", method=RequestMethod.GET)
 	public String logout() {
 		SecurityUtils.getSubject().logout();
-		return "/admin/login";
+		return "redirect:/manage/toLogin";
 	}
 	/**
 	 * 跳转到注册页面
@@ -190,12 +191,15 @@ public class AdminMainController extends BaseRestController {
 	 */
 	@RequestMapping(value="/manage/index", method=RequestMethod.GET)
 	public String toIndex(HttpServletRequest request, HttpServletResponse response, ModelMap model) {
-//		SystemUser user = (SystemUser) request.getSession().getAttribute(SessionKeyEnum.key_admin.getKey());
-//		List<SystemResource> resources = resourceService.findListByUserId(user.getId());
-//		
-//		List<SystemResourceVo> vo = createMenuTree(resources);
-//		
-//		model.addAttribute("menus", vo);
+		Subject currentUser = SecurityUtils.getSubject();  
+		Session session = currentUser.getSession();
+		 
+		SystemUser user = (SystemUser) session.getAttribute(SessionKeyEnum.key_admin.getKey());
+		List<SystemResource> resources = resourceService.findListByUserId(user.getId());
+		
+		List<SystemResourceVo> vo = createMenuTree(resources);
+		
+		model.addAttribute("menus", vo);
 		return "/admin/NewIndex";
 	}
 	/**

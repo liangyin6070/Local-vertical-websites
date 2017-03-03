@@ -12,14 +12,15 @@
     <result column="permission" property="permission" jdbcType="VARCHAR" />
     <result column="remark" property="remark" jdbcType="VARCHAR" />
     <result column="publish_status" property="publishStatus" jdbcType="BIT" />
+    <result column="icon" property="icon" jdbcType="VARCHAR" />
   </resultMap>
   
   <sql id="Base_Column_List" >
-    id, pid, name, type, url, sort, permission, remark, publish_status
+    id, pid, name, type, url, sort, permission, remark, publish_status, icon
   </sql>
   
   <sql id="columns">
-  	resource.id, resource.pid, resource.name, resource.type, resource.url, resource.sort, resource.permission, resource.remark, resource.publish_status
+  	resource.id, resource.pid, resource.name, resource.type, resource.url, resource.sort, resource.permission, resource.remark, resource.publish_status, resource.icon
   </sql>
   
   <!-- 主键查询资源数据 -->
