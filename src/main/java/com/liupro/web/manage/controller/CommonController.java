@@ -1,32 +1,23 @@
 package com.liupro.web.manage.controller;
 
 import java.io.File;
-import java.io.IOException;
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.jeecgframework.poi.excel.ExcelImportUtil;
-import org.jeecgframework.poi.excel.entity.ImportParams;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import org.springframework.web.util.WebUtils;
 
 import com.alibaba.fastjson.JSONObject;
-import com.framwork.core.spring.BaseRestController;
-import com.framwork.utils.HttpServletUtils;
+import com.framwork.base.BaseRestController;
 import com.framwork.utils.ResponseUtils;
 import com.framwork.utils.WebParamUtils;
-import com.liupro.web.manage.model.Demo;
 /**
  * 
  * @description 

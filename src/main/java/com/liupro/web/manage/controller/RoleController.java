@@ -9,7 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.framwork.core.spring.BaseRestController;
+import com.framwork.base.BaseRestController;
 import com.liupro.web.manage.service.SystemRoleServiceI;
 /**
  * 

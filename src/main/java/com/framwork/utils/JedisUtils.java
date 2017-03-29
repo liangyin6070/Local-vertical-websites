@@ -4,7 +4,9 @@ import java.io.IOException;
 import java.util.Map;
 import java.util.Properties;
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
@@ -14,7 +16,7 @@ import redis.clients.jedis.JedisPoolConfig;
  *
  */
 public class JedisUtils {
-	private static Logger log = Logger.getLogger(JedisUtils.class);
+	private static Logger log = LoggerFactory.getLogger(JedisUtils.class);
 	/*
 	 * 连接池对象
 	 */

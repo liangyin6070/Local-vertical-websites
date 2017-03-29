@@ -1,4 +1,4 @@
-package com.framwork.core.spring;
+package com.framwork.base;
 
 import java.util.Date;
 import javax.servlet.http.HttpServletRequest;

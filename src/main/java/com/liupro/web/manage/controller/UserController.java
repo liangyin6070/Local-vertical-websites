@@ -20,7 +20,7 @@ import com.liupro.web.manage.model.SystemUser;
 import com.liupro.web.manage.service.SystemUserServiceI;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.framwork.core.spring.BaseRestController;
+import com.framwork.base.BaseRestController;
 import com.framwork.utils.ResponseUtils;
 
 /**

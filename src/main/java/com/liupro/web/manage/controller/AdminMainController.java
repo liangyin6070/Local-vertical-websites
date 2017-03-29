@@ -27,14 +27,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
-import org.springframework.web.util.WebUtils;
-
-import com.framwork.core.spring.BaseRestController;
+import com.framwork.base.BaseRestController;
 import com.framwork.enums.OperateTypeEnum;
 import com.framwork.enums.SessionKeyEnum;
 import com.framwork.utils.WebParamUtils;
@@ -117,7 +114,6 @@ public class AdminMainController extends BaseRestController {
 		
 		if(StringUtils.isBlank(username) || StringUtils.isBlank(password)) {
 			model.addAttribute("message_login", "账号/密码不能为空");
-			
 			logService.insertLog(log);
 			return "/admin/login";
 		} /*else if(StringUtils.isBlank(verifiCode) || StringUtils.equals(verifiCode, sessionCode)) {
@@ -131,21 +127,15 @@ public class AdminMainController extends BaseRestController {
 		Subject subject = SecurityUtils.getSubject();
 		try {
 			subject.login(token);
-		} catch(UnknownAccountException uae){  
-            logger.error("对用户[" + username + "]进行登录验证..验证未通过,未知账户");  
+		} catch(UnknownAccountException uae){   
             model.addAttribute("message_login", "未知账户");  
-        }catch(IncorrectCredentialsException ice){  
-        	logger.error("对用户[" + username + "]进行登录验证..验证未通过,错误的凭证");  
+        }catch(IncorrectCredentialsException ice){   
             model.addAttribute("message_login", "用户名或密码不正确");  
-        }catch(LockedAccountException lae){  
-        	logger.error("对用户[" + username + "]进行登录验证..验证未通过,账户已锁定");  
+        }catch(LockedAccountException lae){     
             model.addAttribute("message_login", "账户已锁定");  
         }catch(ExcessiveAttemptsException eae){  
-        	logger.error("对用户[" + username + "]进行登录验证..验证未通过,错误次数过多");  
             model.addAttribute("message_login", "用户名或密码错误次数过多");  
-        }catch(AuthenticationException ae){  
-            //通过处理Shiro的运行时AuthenticationException就可以控制用户登录失败或密码错误时的情景  
-        	logger.error("对用户[" + username + "]进行登录验证..验证未通过,堆栈轨迹如下", ae);   
+        }catch(AuthenticationException ae){    
             model.addAttribute("message_login", "用户名或密码不正确");  
         } 
 		
@@ -193,12 +183,9 @@ public class AdminMainController extends BaseRestController {
 	public String toIndex(HttpServletRequest request, HttpServletResponse response, ModelMap model) {
 		Subject currentUser = SecurityUtils.getSubject();  
 		Session session = currentUser.getSession();
-		 
 		SystemUser user = (SystemUser) session.getAttribute(SessionKeyEnum.key_admin.getKey());
 		List<SystemResource> resources = resourceService.findListByUserId(user.getId());
-		
 		List<SystemResourceVo> vo = createMenuTree(resources);
-		
 		model.addAttribute("menus", vo);
 		return "/admin/NewIndex";
 	}

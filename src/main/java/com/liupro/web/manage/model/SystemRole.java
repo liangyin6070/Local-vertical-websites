@@ -1,6 +1,8 @@
 package com.liupro.web.manage.model;
 
-public class SystemRole {
+import com.framwork.model.Page;
+
+public class SystemRole  extends Page{
     private Integer id;
 
     private String roleName;

@@ -1,6 +1,8 @@
 package com.liupro.web.manage.model;
 
-public class SystemResource {
+import com.framwork.model.Page;
+
+public class SystemResource  extends Page{
     private Integer id;
 
     private Integer pid;

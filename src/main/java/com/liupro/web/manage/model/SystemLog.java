@@ -2,7 +2,9 @@ package com.liupro.web.manage.model;
 
 import java.util.Date;
 
-public class SystemLog {
+import com.framwork.model.Page;
+
+public class SystemLog  extends Page{
     private Long id;
 
     private Integer userId;

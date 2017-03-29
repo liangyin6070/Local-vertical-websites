@@ -2,7 +2,9 @@ package com.liupro.web.manage.model;
 
 import java.util.Date;
 
-public class SystemUser {
+import com.framwork.model.Page;
+
+public class SystemUser extends Page{
     private Integer id;
 
     private String userName;

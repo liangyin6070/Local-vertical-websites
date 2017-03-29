@@ -1,4 +1,4 @@
-package com.framwork.core.spring;
+package com.framwork.base;
 
 import java.beans.PropertyEditorSupport;
 import java.text.ParseException;
