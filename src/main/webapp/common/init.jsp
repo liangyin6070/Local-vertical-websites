@@ -8,6 +8,4 @@
 
 <c:set value="${pageContext.request.contextPath}" var="basePath" scope="request"/>
 
-<c:set value="${basePath}/static/bootstrap" var="bootstrapPath" scope="request"/>
-<c:set value="${basePath}/static/hplus4" var="hplus4Path" scope="request"/>
-<c:set value="${basePath}/static/common" var="commonPath" scope="request" />
+<c:set value="${basePath}/static/BeginnerAdmin" var="adminPath" scope="request"/>
