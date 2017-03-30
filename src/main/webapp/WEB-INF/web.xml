@@ -49,10 +49,10 @@
 		<listener-class>org.springframework.web.util.IntrospectorCleanupListener</listener-class>
 	</listener>
 	
-	<listener>
+<!-- 	<listener>
 		<description>上下文监听器</description>
 		<listener-class>com.framwork.listener.Application</listener-class>
-	</listener>
+	</listener> -->
 	
 	<!-- springMVC -->
 	<servlet>

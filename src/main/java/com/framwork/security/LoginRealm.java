@@ -56,8 +56,6 @@ public class LoginRealm extends AuthorizingRealm {
 		if(StringUtils.isBlank(username)) {
 			throw new AuthorizationException("未登录");
 		}
-		
-		
 		SystemUser user = userService.selectByUserName(username);
 		if(user == null || user.getIsLocked()) {
 			throw new AuthorizationException("用户不存在或者用户被锁定");
@@ -90,7 +88,6 @@ public class LoginRealm extends AuthorizingRealm {
 			throw new IncorrectCredentialsException("密码不匹配");
 		}
 		setSession(SessionKeyEnum.key_admin.getKey(), user);//设置到session中
-		//SimpleAuthenticationInfo auth = new SimpleAuthenticationInfo();
 		SimpleAuthenticationInfo auth = new SimpleAuthenticationInfo(user.getUserName(), pwd, getName());
 		return auth;
 	}
