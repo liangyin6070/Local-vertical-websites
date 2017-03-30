@@ -12,7 +12,7 @@
 <script type="text/javascript" src="${commonPath}/uploadify/jquery.uploadify.min.js"></script> --%>
 </head>
 <body>
-<h2>欢迎使用粤西后台管理系统</h2>
+<h2>欢迎使用XXX后台管理系统</h2>
 <!-- <div id="panel_new_news" class="easyui-panel" title="My Panel" style="width:500px;height:150px;padding:10px;"   
 	data-options="iconCls:'icon-save',closable:true, collapsible:true,minimizable:true,maximizable:true">   
     <p>panel content.</p>   

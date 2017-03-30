@@ -28,4 +28,6 @@ public interface SystemUserMapper {
 	List<SystemUser> findByPage(Map<String, Object> params);
 	
 	long count(Map<String, Object> params);
+
+	List<SystemUser> selectPage(SystemUser user);
 }

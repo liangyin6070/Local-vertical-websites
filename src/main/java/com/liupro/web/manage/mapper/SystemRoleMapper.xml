@@ -2,14 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <!-- 角色表XML -->
 <mapper namespace="com.liupro.web.manage.dao.SystemRoleMapper">
-	<!-- 缓存配置 -->
-	<cache type="org.mybatis.caches.ehcache.LoggingEhcache">
-		<property name="timeToIdleSeconds" value="120" /><!--2分钟 -->
-		<property name="timeToLiveSeconds" value="120" /><!--2分钟 -->
-		<property name="maxEntriesLocalHeap" value="1000" />
-		<property name="maxEntriesLocalDisk" value="10000000" />
-		<property name="memoryStoreEvictionPolicy" value="LRU" />
-	</cache>
 	<!-- 表映射 -->
 	<resultMap id="BaseResultMap" type="com.liupro.web.manage.model.SystemRole">
 		<id column="id" property="id" jdbcType="INTEGER" />
@@ -23,14 +15,14 @@
 		id, role_name, role_code, publish_status, remark
 	</sql>
 	<!-- 主键查询 -->
-	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" useCache="false">
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
 		select
 		<include refid="Base_Column_List" />
 		from system_role
 		where id = #{id,jdbcType=INTEGER}
 	</select>
 	<!-- 根据账号查询角色值 -->
-	<select id="selectByUserName" resultType="java.lang.String" parameterType="java.lang.String" useCache="false">
+	<select id="selectByUserName" resultType="java.lang.String" parameterType="java.lang.String" >
 		SELECT role.role_code FROM system_role role
 		LEFT join system_user_role ur ON role.id = ur.role_id
 		LEFT join system_user user ON ur.user_id = user.id
@@ -38,7 +30,7 @@
 		= 1
 	</select>
 	<!-- 分页查询 -->
-	<select id="findByPage" resultMap="BaseResultMap" parameterType="java.util.Map" useCache="false">
+	<select id="findByPage" resultMap="BaseResultMap" parameterType="java.util.Map" >
 		select
 		<include refid="Base_Column_List" />
 		from system_role
@@ -51,7 +43,7 @@
 		</if>
 	</select>
 	<!--  -->
-	<select id="count" parameterType="java.util.Map" resultType="java.lang.Long" useCache="false">
+	<select id="count" parameterType="java.util.Map" resultType="java.lang.Long" >
 		select count(1) from system_role
 		<where>
 			1=1

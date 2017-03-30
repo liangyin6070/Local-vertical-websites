@@ -3,14 +3,14 @@
 <!-- 用户表XML -->
 <mapper namespace="com.liupro.web.manage.dao.SystemUserMapper">
 	<!-- 缓存配置 -->
-	<cache type="org.mybatis.caches.ehcache.LoggingEhcache">
-		<property name="timeToIdleSeconds" value="120" /><!--2分钟 -->
-		<property name="timeToLiveSeconds" value="120" /><!--2分钟 -->
+	<!-- <cache type="org.mybatis.caches.ehcache.LoggingEhcache">
+		<property name="timeToIdleSeconds" value="120" />2分钟
+		<property name="timeToLiveSeconds" value="120" />2分钟
 		<property name="maxEntriesLocalHeap" value="1000" />
 		<property name="maxEntriesLocalDisk" value="10000000" />
 		<property name="memoryStoreEvictionPolicy" value="LRU" />
 	</cache>
-
+ -->
 	<!-- 表映射 -->
 	<resultMap id="BaseResultMap" type="com.liupro.web.manage.model.SystemUser">
 		<id column="id" property="id" jdbcType="INTEGER" />
@@ -41,17 +41,22 @@
 		publish_status
 	</sql>
 	<!-- 主键查询 -->
-	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
-		parameterType="java.lang.Integer" useCache="false">
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
 		select
 		<include refid="Base_Column_List" />
 		from system_user
 		where id = #{id,jdbcType=INTEGER}
 	</select>
 
+	<!-- 分页查询 -->
+	<select id="selectPage" resultMap="BaseResultMap" parameterType="com.liupro.web.manage.model.SystemUser">
+		select
+		<include refid="Base_Column_List" />
+		from system_user
+	</select>
+
 	<!-- 根据账号查询 -->
-	<select id="selectByUserName" resultMap="BaseResultMap"
-		parameterType="java.lang.String" useCache="false">
+	<select id="selectByUserName" resultMap="BaseResultMap" parameterType="java.lang.String">
 		select
 		<include refid="Base_Column_List" />
 		from system_user
@@ -59,7 +64,7 @@
 	</select>
 
 	<!-- 分页获取用户信息 -->
-	<select id="findByPage" parameterType="java.util.Map" resultMap="BaseResultMap" useCache="false">
+	<select id="findByPage" parameterType="java.util.Map" resultMap="BaseResultMap">
 		select
 		<include refid="Base_Column_List" />
 		from system_user
@@ -72,7 +77,7 @@
 		</if>
 	</select>
 	<!-- 获取用户数量 -->
-	<select id="count" parameterType="java.util.Map" resultType="java.lang.Long" useCache="false">
+	<select id="count" parameterType="java.util.Map" resultType="java.lang.Long">
 		select count(1) from system_user
 		<where>
 			1=1

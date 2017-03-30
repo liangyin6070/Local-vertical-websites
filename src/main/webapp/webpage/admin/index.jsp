@@ -23,14 +23,14 @@
 </div>	
 <!-- head end -->
 <!-- right start -->
-<div data-options="region:'east',split:true,title:'East'" style="width:250px;">
-<div id="cc" class="easyui-calendar" style="width:230px;height:180px;"></div> 
-</div>
+<!-- <div data-options="region:'east',split:true,title:'East'" style="width:250px;">
+	<div id="cc" class="easyui-calendar" style="width:230px;height:180px;"></div> 
+</div> -->
 <!-- right end -->
 <!-- left start -->
 <%-- <frontTag:menuTree userId="1"/> --%>
-<div data-options="region:'west',split:true,title:'系统菜单栏'" style="width:250px;">
-	<div id="accordion_left" class="easyui-accordion" fit=true> 
+<div data-options="region:'west',split:true,title:'菜单栏'" style="width:250px;">
+	<div id="accordion_left" class="easyui-accordion" data-options="fillSpace:true,fit: true,border: false,animate: true,selected:false"> 
 		<c:forEach var="menu" items="${menus}">
 			<div title="${menu.name}">
 				<c:forEach var="child" items="${menu.childs}">

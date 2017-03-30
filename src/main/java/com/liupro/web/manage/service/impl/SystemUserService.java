@@ -78,17 +78,18 @@ public class SystemUserService implements SystemUserServiceI{
 		userMapper.deleteByPrimaryKey(id);
 	}
 	/**
-	 * 分页获取用户列表
-	 */
-	@Override
-	public List<SystemUser> findByPage(Map<String, Object> params) {
-		return userMapper.findByPage(params);
-	}
-	/**
 	 * 获取用户数量
 	 */
 	@Override
 	public long count(Map<String, Object> params) {
 		return userMapper.count(params);
+	}
+	/**
+	 * 
+	 */
+	@Override
+	public List<SystemUser> selectPage(SystemUser user) {
+		// TODO Auto-generated method stub
+		return userMapper.selectPage(user);
 	}
 }

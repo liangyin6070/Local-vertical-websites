@@ -43,7 +43,7 @@ public class UserController extends BaseRestController {
 	@RequiresPermissions("user:toList")//权限限制
 	@RequestMapping(value="/manage/admin/user/toList", method=RequestMethod.GET)
 	public String toList() {
-		return "/admin/system/user";
+		return "/webpage/admin/system/user";
 	}
 	/**
 	 * 异步获取用户列表信息
@@ -53,13 +53,14 @@ public class UserController extends BaseRestController {
 	@RequiresRoles("admin")//超级管理员角色
 	@RequiresPermissions("user:ajaxList")//权限限制
 	@RequestMapping(value="/manage/admin/user/ajaxList", method=RequestMethod.POST)
-	public void ajaxList(HttpServletRequest request, HttpServletResponse response, Integer page, Integer rows) {
+	public void ajaxList(HttpServletRequest request, HttpServletResponse response, 
+			Integer page, Integer rows) {
 		JSONObject result = new JSONObject();
-		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("pageNo", (page-1)*rows);
-		params.put("pageSize", rows);
-		List<SystemUser> users = userService.findByPage(params);
-		long count = userService.count(params);
+		SystemUser user = new SystemUser();
+		user.setPageNo(page);
+		user.setPageSize(rows);
+		List<SystemUser> users = userService.selectPage(user);
+		int count = user.getTotal();
 		result.put("total", count);
 		result.put("rows", (JSONArray)JSONArray.toJSON(users));
 		ResponseUtils.renderJson(response, result.toJSONString());

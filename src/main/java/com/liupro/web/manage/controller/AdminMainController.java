@@ -52,8 +52,6 @@ import com.liupro.web.manage.vo.SystemResourceVo;
 public class AdminMainController extends BaseRestController {
 	private static Logger logger = LoggerFactory.getLogger(AdminMainController.class);
 	@Autowired
-	private SystemUserServiceI userService;
-	@Autowired
 	private SystemLogServiceI logService;
 	@Autowired
 	private SystemResourceServiceI resourceService;
@@ -67,7 +65,7 @@ public class AdminMainController extends BaseRestController {
 		if(StringUtils.isNotBlank(refer)) {
 			model.addAttribute("refer", refer);
 		}
-		return "/admin/login";
+		return "/webpage/admin/login";
 	}
 	/**
 	 * 获取验证码图片和文本(验证码文本会保存在HttpSession中)
@@ -115,7 +113,7 @@ public class AdminMainController extends BaseRestController {
 		if(StringUtils.isBlank(username) || StringUtils.isBlank(password)) {
 			model.addAttribute("message_login", "账号/密码不能为空");
 			logService.insertLog(log);
-			return "/admin/login";
+			return "/webpage/admin/login";
 		} /*else if(StringUtils.isBlank(verifiCode) || StringUtils.equals(verifiCode, sessionCode)) {
 			model.addAttribute("message_login", "验证码不正确");
 			return "/admin/login";
@@ -123,7 +121,7 @@ public class AdminMainController extends BaseRestController {
 		
 		//验证用户密码是否匹配
 		UsernamePasswordToken token = new UsernamePasswordToken(username, password);
-		token.setRememberMe(isRememberMe);
+		//token.setRememberMe(isRememberMe);
 		Subject subject = SecurityUtils.getSubject();
 		try {
 			subject.login(token);
@@ -141,13 +139,13 @@ public class AdminMainController extends BaseRestController {
 		
 		if(subject.isAuthenticated()) {
 			//如果验证通过
-			String refer = request.getHeader("Refer");
-			if(StringUtils.isNotBlank(refer)) {
-				return InternalResourceViewResolver.REDIRECT_URL_PREFIX + refer;
-			}
+//			String refer = request.getHeader("Refer");
+//			if(StringUtils.isNotBlank(refer)) {
+//				return InternalResourceViewResolver.REDIRECT_URL_PREFIX + refer;
+//			}
 			return InternalResourceViewResolver.REDIRECT_URL_PREFIX + "/manage/index";
 		} else {
-			return "/admin/login";
+			return "/webpage/admin/login";
 		}
 	}
 	/**
@@ -187,7 +185,7 @@ public class AdminMainController extends BaseRestController {
 		List<SystemResource> resources = resourceService.findListByUserId(user.getId());
 		List<SystemResourceVo> vo = createMenuTree(resources);
 		model.addAttribute("menus", vo);
-		return "/admin/NewIndex";
+		return "/webpage/admin/index";
 	}
 	/**
 	 * tab首页，显示系统信息
@@ -198,7 +196,7 @@ public class AdminMainController extends BaseRestController {
 	 */
 	@RequestMapping(value="/manage/blank", method=RequestMethod.GET)
 	public String toBlank(HttpServletRequest request, HttpServletResponse response, ModelMap model) {
-		return "/admin/blank";
+		return "/webpage/admin/blank";
 	}
 	/**
 	 * 生成树形模型

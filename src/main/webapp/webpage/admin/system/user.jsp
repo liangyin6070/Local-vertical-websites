@@ -11,8 +11,8 @@
 <body class="easyui-layout">
 <table id="dataGrid"></table>
 <div id="tb" style="padding:2px 5px;">
-	Date From: <input class="easyui-datebox" style="width:110px" />
-	To: <input class="easyui-datebox" style="width:110px" />
+	开始时间: <input class="easyui-datebox" style="width:110px" />
+	结束时间: <input class="easyui-datebox" style="width:110px" />
 	<a href="#" class="easyui-linkbutton" iconCls="icon-search">查询</a>
 	<a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true"></a>
 	<a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true"></a>

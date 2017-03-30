@@ -44,11 +44,11 @@ public interface SystemUserServiceI {
 	 * @param params
 	 * @return
 	 */
-	List<SystemUser> findByPage(Map<String, Object> params);
+	long count(Map<String, Object> params);
 	/**
 	 * 
-	 * @param params
+	 * @param user
 	 * @return
 	 */
-	long count(Map<String, Object> params);
+	public List<SystemUser> selectPage(SystemUser user);
 }
