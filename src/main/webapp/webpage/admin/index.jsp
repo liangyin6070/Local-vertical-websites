@@ -50,7 +50,7 @@
 		margin: 0 auto;
 		width: 18px;
 		height: 18px;
-		background: url('${frontPath}/skin/img/icons.png') no-repeat 0 -72px;
+		background: url('${basePath}/skin/img/icons.png') no-repeat 0 -72px;
     }
 
     .datagrid-toolbar{
@@ -102,10 +102,10 @@
 <!-- head start -->
 <div data-options="region:'north',border:false" style="height:60px;">
 	<ul class="layui-nav" lay-filter="">
-	  <li class="layui-nav-item"><a href="${frontPath}/manage/index">M系统</a></li>
-	  <li class="layui-nav-item"><a href="">产品</a></li>
-	  <li class="layui-nav-item"><a href="">大数据</a></li>
-	  <li class="layui-nav-item" pc><a href="">社区</a></li>
+	  <li class="layui-nav-item"><a href="${basePath}/manage/index">M系统</a></li>
+	  <li class="layui-nav-item" style="float:right;"><a href="">admin</a></li>
+	  <li class="layui-nav-item" style="float:right;"><a href="">个人信息</a></li>
+	  <li class="layui-nav-item" style="float:right;"><a href="">注销</a></li>
 	</ul>
 </div>	
 <!-- head end -->
@@ -133,14 +133,11 @@
 </body>
 <script type="text/javascript">
 //注意：导航 依赖 element 模块，否则无法进行功能性操作
-layui.use('element', function(){
+layui.use(['element', 'layer'], function(){
   var element = layui.element();
+  var layer = layui.layer;
+  layer.msg('欢迎进入XXX后台管理系统！');
 });
-layui.use('layer', function(){
-	  var layer = layui.layer;
-	  layer.msg('hello');
-	});
-
 
 $(function(){
 	$('#tt').tabs({

@@ -15,7 +15,7 @@
 			<div class="layui-main">
 				<div class="admin-login-box">
 					<a class="logo" style="left: 0;" href="http://beginner.zhengjinfan.cn/demo/beginner_admin/">
-						<span style="font-size: 22px;">BeginnerAdmin</span>
+						<span style="font-size: 22px;">M系统</span>
 					</a>
 					<div class="admin-side-toggle">
 						<i class="fa fa-bars" aria-hidden="true"></i>
@@ -26,18 +26,18 @@
 				</div>
 				<ul class="layui-nav admin-header-item">
 					<li class="layui-nav-item">
-						<a href="javascript:;">清除缓存</a>
+						<a href="#">清除缓存</a>
 					</li>
 					<li class="layui-nav-item">
-						<a href="javascript:;">浏览网站</a>
+						<a href="#">浏览网站</a>
 					</li>
 					<li class="layui-nav-item" id="video1">
-						<a href="javascript:;">视频</a>
+						<a href="#">视频</a>
 					</li>
 					<li class="layui-nav-item">
 						<a href="javascript:;" class="admin-header-user">
-							<img src="images/0.jpg" />
-							<span>beginner</span>
+							<!-- <img src="images/0.jpg" /> -->
+							<span>${user.userName}</span>
 						</a>
 						<dl class="layui-nav-child">
 							<dd>

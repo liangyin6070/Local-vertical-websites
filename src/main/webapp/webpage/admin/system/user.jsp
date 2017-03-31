@@ -7,18 +7,24 @@
 <title>用户管理</title>
 <jsp:include page="/common/meta.jsp" />
 <jsp:include page="/common/easyui.jsp" />
+<jsp:include page="/common/layui.jsp" />
 </head>
 <body class="easyui-layout">
 <table id="dataGrid"></table>
-<div id="tb" style="padding:2px 5px;">
-	<a href="#" class="easyui-linkbutton" iconCls="icon-search">查询</a>
-	<a href="#" class="easyui-linkbutton" iconCls="icon-add" plain="true">新增</a>
-	<a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true">编辑</a>
-	<a href="#" class="easyui-linkbutton" iconCls="icon-cancel" plain="true">删除</a>
+<div id="tb" style="">
+	<button class="layui-btn" onclick="appendData();">增加</button>
+	<button class="layui-btn" onclick="">编辑</button>
+	<button class="layui-btn" onclick="">删除</button>
 </div>
 
 </body>
 <script type="text/javascript">
+var layer = null;
+layui.use(['element', 'layer'], function(){
+  var element = layui.element();
+  layer = layui.layer;
+});
+
 $(function(){
 	$('#dataGrid').datagrid({    
 		method:'post',
@@ -49,6 +55,29 @@ $(function(){
 
 function search() {
 	$('#dataGrid').datagrid('load', {});  
+}
+
+
+
+function appendData() {
+	  layer.open({
+		  area: ['500px', '300px'],
+		    type: 2,
+		    content: "1231111",
+		    btn: ['确定', '取消'],
+		    yes:function(index, layero) {
+		    	layer.alert("1111");
+		    	layer.close(index); //如果设定了yes回调，需进行手工关闭
+		    },
+		    btn1:function(index, layero){
+		    	layer.close(index); 
+		    },
+		    cancel: function(){ 
+		        //右上角关闭回调
+		        //alert("123");
+		        //return false 开启该代码可禁止点击该按钮关闭
+		      }
+		  });
 }
 </script>
 </html>
