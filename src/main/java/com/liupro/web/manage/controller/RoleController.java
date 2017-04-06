@@ -1,5 +1,8 @@
 package com.liupro.web.manage.controller;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.slf4j.Logger;
@@ -9,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.alibaba.fastjson.JSONObject;
 import com.framwork.base.BaseRestController;
 import com.liupro.web.manage.service.SystemRoleServiceI;
 /**
@@ -32,6 +36,15 @@ public class RoleController extends BaseRestController {
 	@RequestMapping(value="/manage/admin/role/toList", method=RequestMethod.GET)
 	public String tiList() {
 		return "/admin/system/role";
+	}
+	
+	@RequiresRoles("admin")//超级管理员角色
+	@RequiresPermissions("role:ajaxList")//权限限制
+	@RequestMapping(value="/manage/admin/role/toList", method=RequestMethod.POST)
+	public JSONObject ajaxList(HttpServletRequest request, HttpServletResponse response, 
+			Integer page, Integer rows, String order, String sort) {
+		JSONObject result = new JSONObject();
+		return result;
 	}
 	
 }

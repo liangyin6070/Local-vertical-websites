@@ -5,7 +5,7 @@
 <html>
   <head>
     <title>首页-demo</title>
-    <jsp:include page="/import/meta.jsp" />
+    <jsp:include page="/common/meta.jsp" />
 </head>
 <body>
 </body>

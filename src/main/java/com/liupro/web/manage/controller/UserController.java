@@ -1,12 +1,9 @@
 package com.liupro.web.manage.controller;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
+import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.slf4j.Logger;
@@ -15,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.liupro.web.manage.model.SystemUser;
 import com.liupro.web.manage.service.SystemUserServiceI;
@@ -53,7 +51,8 @@ public class UserController extends BaseRestController {
 	@RequiresRoles("admin")//超级管理员角色
 	@RequiresPermissions("user:ajaxList")//权限限制
 	@RequestMapping(value="/manage/admin/user/ajaxList", method=RequestMethod.POST)
-	public void ajaxList(HttpServletRequest request, HttpServletResponse response, 
+	@ResponseBody
+	public JSONObject ajaxList(HttpServletRequest request, HttpServletResponse response, 
 			Integer page, Integer rows) {
 		JSONObject result = new JSONObject();
 		SystemUser user = new SystemUser();
@@ -63,7 +62,8 @@ public class UserController extends BaseRestController {
 		int count = user.getTotal();
 		result.put("total", count);
 		result.put("rows", (JSONArray)JSONArray.toJSON(users));
-		ResponseUtils.renderJson(response, result.toJSONString());
+		//ResponseUtils.renderJson(response, result.toJSONString());
+		return result;
 	}
 	/**
 	 * 新增用户
@@ -82,6 +82,8 @@ public class UserController extends BaseRestController {
 			result.put("msg", "用户新增成功");
 		} catch (Exception e) {
 			logger.error("新增用户失败", e);
+			result.put(SUCCESS, false);
+			result.put(MSG, "新增失败");
 		}
 		
 		ResponseUtils.renderJson(response, result.toJSONString());
@@ -92,8 +94,23 @@ public class UserController extends BaseRestController {
 	@RequiresRoles("admin")//超级管理员角色
 	@RequiresPermissions("user:delete")//权限限制
 	@RequestMapping(value="/manage/admin/user/delete", method=RequestMethod.POST)
-	public void deleteUser() {
-		
+	public void deleteUser(HttpServletRequest request, HttpServletResponse response, String ids) {
+		JSONObject result = new JSONObject();
+		try {
+			if(StringUtils.isNotBlank(ids)) {
+				String[] deleteIds = ids.split(",");
+				for (String id : deleteIds) {
+					userService.deleteById(Integer.parseInt(id));
+				}
+			}
+			result.put(SUCCESS, true);
+			result.put(MSG, "删除成功");
+		} catch(Exception e) {
+			logger.error("用户删除失败", e);
+			result.put(SUCCESS, false);
+			result.put(MSG, "删除失败");
+		}
+		ResponseUtils.renderJson(response, result.toJSONString());
 	}
 	/**
 	 * 编辑用户
@@ -101,7 +118,17 @@ public class UserController extends BaseRestController {
 	@RequiresRoles("admin")//超级管理员角色
 	@RequiresPermissions("user:edit")//权限限制
 	@RequestMapping(value="/manage/admin/user/edit", method=RequestMethod.POST)
-	public void editUser() {
-		
+	public void editUser(HttpServletRequest request, HttpServletResponse response, SystemUser user) {
+		JSONObject result = new JSONObject();
+		try {
+			userService.editUser(user);
+			result.put(SUCCESS, true);
+			result.put(MSG, "编辑成功");
+		} catch(Exception e) {
+			logger.error("用户编辑失败", e);
+			result.put(SUCCESS, false);
+			result.put(MSG, "编辑失败");
+		}
+		ResponseUtils.renderJson(response, result.toJSONString());
 	}
 }
